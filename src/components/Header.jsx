@@ -1,7 +1,7 @@
 import { h } from 'hyperapp'
 
-export default ({ username = 'anon' }) => (
+export default ({ user = 'anon' }) => (
   <header class="row">
-    <div class="col-sm-1">Logged in: {username}</div>
+    <div class="col-sm-1">Logged in: {user}</div>
   </header>
 )

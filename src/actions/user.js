@@ -1,10 +1,12 @@
-const mockDelay = () => new Promise(resolve => setTimeout(resolve, 500))
+import { auth, githubAuthProvider } from '../firebase'
 
 export default {
   toggleLoading: () => state => ({ isLoading: !state.isLoading }),
   signIn: () => async (state, actions) => {
     actions.toggleLoading()
-    await mockDelay()
+    const res = await auth.signInWithPopup(githubAuthProvider)
     actions.toggleLoading()
+    actions.setUser(res.user)
   },
+  setUser: user => () => user,
 }
