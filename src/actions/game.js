@@ -3,10 +3,10 @@ import { database } from '../firebase'
 export default {
   set: game => () => game,
   toggleLoading: () => state => ({ loading: !state.loading }),
-  startGame: uid => async () => {
-    await database.ref('game').set({ started: true, adminId: uid })
+  startGame: user => async () => {
+    await database.ref('game').set({ started: true, admin: user })
   },
   endGame: () => async () => {
-    await database.ref('game').set({ started: false, adminId: 0 })
+    await database.ref('game').set({ started: false, admin: 0 })
   },
 }

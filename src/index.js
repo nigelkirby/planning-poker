@@ -10,8 +10,8 @@ const startGameListner = () => {
   database.ref('game').on('value', snap => main.game.set(snap.val()))
 }
 
-auth.onAuthStateChanged((user) => {
-  main.user.set(user)
+auth.onAuthStateChanged(({ displayName, uid, photoURL }) => {
+  main.user.set({ displayName, uid, photoURL })
   startGameListner()
 })
 

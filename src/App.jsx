@@ -10,7 +10,7 @@ export default (state, actions) => (
     {state.user.displayName && (
       <Game
         game={state.game}
-        uid={state.user.uid}
+        user={state.user}
         startGame={actions.game.startGame}
         endGame={actions.game.endGame}
       />
