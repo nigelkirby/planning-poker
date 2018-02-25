@@ -7,13 +7,6 @@ export default (state, actions) => (
     {!state.user.displayName &&
       !state.user.isLoading && <button onclick={actions.user.signIn}>Sign In</button>}
     {state.user.isLoading && <div>Loading...</div>}
-    {state.user.displayName && (
-      <Game
-        game={state.game}
-        user={state.user}
-        startGame={actions.game.startGame}
-        endGame={actions.game.endGame}
-      />
-    )}
+    {state.user.displayName && <Game game={state.game} user={state.user} actions={actions.game} />}
   </div>
 )
