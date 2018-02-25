@@ -1,4 +1,4 @@
 import Header from './Header.jsx'
+import Game from './Game.jsx'
 
-/* eslint-disable import/prefer-default-export */
-export { Header }
+export { Header, Game }

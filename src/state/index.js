@@ -1,2 +1,4 @@
 export default {
+  game: {},
+  user: {},
 }

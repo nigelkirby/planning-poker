@@ -1,14 +1,16 @@
 import { h } from 'hyperapp'
-import { Header } from './components'
+import { Header, Game } from './components'
 // import { database } from './firebase'
 
 /* eslint-disable-next-line no-unused-vars */
 export default (state, actions) => (
   <div>
-    <Header user={state.user.displayName} />
+    <Header name={state.user.displayName} />
     {!state.user.displayName &&
       !state.user.isLoading && <button onclick={actions.user.signIn}>Sign In</button>}
     {state.user.isLoading && <div>Loading...</div>}
-    {state.user.displayName && JSON.stringify(state.user)}
+    {state.user.displayName && (
+      <Game game={state.game} startGame={actions.game.startGame} />
+    )}
   </div>
 )
