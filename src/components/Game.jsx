@@ -33,12 +33,20 @@ export default ({ game, user, actions }) => {
                   <button onclick={actions.newRound} class={!game.showVotes && 'hidden'}>
                     New Round
                   </button>
-                  <button onclick={actions.endGame}>End Game</button>
+                  <label for="end-modal" class="button">End Game</label>
+                  <input id="end-modal" type="checkbox" />
+                  <div class="modal">
+                    <div class="card">
+                      <label for="end-modal" class="close" />
+                      <h3 class="section">Are you sure?</h3>
+                      <button onclick={actions.endGame}>Yes, End Game</button>
+                    </div>
+                  </div>
                 </p>
               ) : (
                 (!game.players || !game.players[user.uid]) && (
                   <p>
-                    Role: Observer
+                    Join the game!
                     <button onclick={() => actions.becomePlayer(user)}>Join Game</button>
                   </p>
                 )
@@ -51,11 +59,15 @@ export default ({ game, user, actions }) => {
                         <h4>{player.displayName}</h4>
                       </div>
                       <div className="col-sm-2">
-                        {player.uid === user.uid && (
-                          <button class="inverse" onclick={() => actions.removePlayer(player.uid)}>
-                            Leave
-                          </button>
-                        )}
+                        {player.uid === user.uid &&
+                          !game.showVotes && (
+                            <button
+                              class="inverse"
+                              onclick={() => actions.removePlayer(player.uid)}
+                            >
+                              Leave
+                            </button>
+                          )}
                       </div>
                       <div class="col-sm-1">
                         <p>{game.showVotes && player.vote}</p>

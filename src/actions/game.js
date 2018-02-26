@@ -31,7 +31,12 @@ export default {
       await database.ref(`game/players/${player.uid}/vote`).set(0)
     })
   },
-  removePlayer: uid => async () => {
-    await database.ref(`game/players/${uid}`).remove()
+  removePlayer: uid => async (state) => {
+    // Take into account that state won't get updated if all players go away
+    if (Object.values(state.players).length === 1 && state.players[uid]) {
+      await database.ref('game/players/').set('')
+    } else {
+      await database.ref(`game/players/${uid}`).remove()
+    }
   },
 }
