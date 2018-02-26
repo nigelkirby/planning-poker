@@ -47,8 +47,15 @@ export default ({ game, user, actions }) => {
                 Object.values(game.players).map(player => (
                   <div class="card fluid">
                     <div class={player.vote ? 'section row darker' : 'section row'}>
-                      <div class="col-sm-11">
+                      <div class="col-sm-9">
                         <h4>{player.displayName}</h4>
+                      </div>
+                      <div className="col-sm-2">
+                        {player.uid === user.uid && (
+                          <button class="inverse" onclick={() => actions.removePlayer(player.uid)}>
+                            Leave
+                          </button>
+                        )}
                       </div>
                       <div class="col-sm-1">
                         <p>{game.showVotes && player.vote}</p>
