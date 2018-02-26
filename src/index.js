@@ -12,7 +12,9 @@ const startGameListner = () => {
 
 auth.onAuthStateChanged(({ displayName, uid, photoURL }) => {
   main.user.set({
-    displayName, uid, photoURL, loading: false,
+    displayName,
+    uid,
+    photoURL,
   })
   startGameListner()
 })

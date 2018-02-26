@@ -4,14 +4,16 @@ export default {
   set: game => () => game,
   toggleLoading: () => state => ({ loading: !state.loading }),
   startGame: user => async () => {
-    await database.ref('game').set({ started: true, admin: user })
+    await database.ref('game/started').set(true)
+    await database.ref('game/admin').set(user)
   },
   endGame: () => async () => {
     await database.ref('game').set({
       started: false,
+      loading: false,
       admin: 0,
-      players: 0,
-      showVotes: 0,
+      players: '',
+      showVotes: false,
     })
   },
   becomePlayer: user => async () => {
@@ -28,5 +30,8 @@ export default {
     Object.values(state.players).forEach(async (player) => {
       await database.ref(`game/players/${player.uid}/vote`).set(0)
     })
+  },
+  removePlayer: uid => async () => {
+    await database.ref(`game/players/${uid}`).remove()
   },
 }
