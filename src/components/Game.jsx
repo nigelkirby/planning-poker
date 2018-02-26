@@ -19,21 +19,26 @@ export default ({ game, user, actions }) => {
       {!game.loading &&
         game.started && (
           <div class="row">
-            <div class="col-sm-9">
-              <h3>Welcome, game has begun.</h3>
+            <div class="col-md-9 col-sm-12">
+              <h3>{game.title || 'Welcome to the game.'}</h3>
               {game.admin.uid === user.uid ? (
-                <p>
-                  Role: Scrum Master
-                  <button
-                    onclick={actions.showVotes}
-                    class={!everyoneDone && !game.showVotes && 'hidden'}
-                  >
-                    Show Votes
-                  </button>
-                  <button onclick={actions.newRound} class={!game.showVotes && 'hidden'}>
-                    New Round
-                  </button>
-                  <label for="end-modal" class="button">End Game</label>
+                <div>
+                  <p>Scrum Master Controls:</p>
+                  <div class="button-group">
+                    <button
+                      onclick={actions.showVotes}
+                      class="small"
+                      disabled={!everyoneDone && !game.showVotes}
+                    >
+                      Show Votes
+                    </button>
+                    <button onclick={actions.newRound} class="small" disabled={!game.showVotes}>
+                      New Round
+                    </button>
+                    <label for="end-modal" class="button small">
+                      End Game
+                    </label>
+                  </div>
                   <input id="end-modal" type="checkbox" />
                   <div class="modal">
                     <div class="card">
@@ -42,7 +47,7 @@ export default ({ game, user, actions }) => {
                       <button onclick={actions.endGame}>Yes, End Game</button>
                     </div>
                   </div>
-                </p>
+                </div>
               ) : (
                 (!game.players || !game.players[user.uid]) && (
                   <p>
@@ -84,7 +89,7 @@ export default ({ game, user, actions }) => {
                   </div>
                 ))}
             </div>
-            <div class="col-sm-3">
+            <div class="col-md-3 hidden-sm">
               <h4>Scrum Master is</h4>
               <UserCard
                 name={game.admin && game.admin.displayName}
