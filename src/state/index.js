@@ -1,4 +1,4 @@
 export default {
-  game: {},
-  user: {},
+  game: { loading: true },
+  user: { loading: true },
 }

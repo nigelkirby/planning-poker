@@ -7,7 +7,12 @@ export default {
     await database.ref('game').set({ started: true, admin: user })
   },
   endGame: () => async () => {
-    await database.ref('game').set({ started: false, admin: 0 })
+    await database.ref('game').set({
+      started: false,
+      admin: 0,
+      players: 0,
+      showVotes: 0,
+    })
   },
   becomePlayer: user => async () => {
     await database.ref(`game/players/${user.uid}`).set(user)
