@@ -1,6 +1,6 @@
 # Planning poker
 
-Simple planning poker SPA. Authed with Firebase using githubAuthProvider.
+Simple planning poker SPA written in hyperapp. Firebase provides auth and stored remote state.
 
 ## Install Dependencies
 
