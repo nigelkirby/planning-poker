@@ -1,7 +1,5 @@
 import { h } from 'hyperapp'
-import { Room, PlayerCard } from './index'
-
-const everyoneDone = players => Object.values(players).every(player => player.vote > 0)
+import { Room, PlayerCard, AdminControls } from './index'
 
 export default ({ game, user, actions }) => (
   <div class="row">
@@ -17,42 +15,22 @@ export default ({ game, user, actions }) => (
       game.started && (
         <div class="col-md-9 col-sm-12">
           <h3>{game.title || 'Welcome to the game.'}</h3>
-          {game.admin.uid === user.uid ? (
-            // todo component:
-            <div>
-              <p>Scrum Master Controls:</p>
-              <div class="button-group">
-                <button
-                  onclick={actions.showVotes}
-                  class="small"
-                  disabled={!everyoneDone(game.players) && !game.showVotes}
-                >
-                  Show Votes
-                </button>
-                <button onclick={actions.newRound} class="small" disabled={!game.showVotes}>
-                  New Round
-                </button>
-                <label for="end-modal" class="button small">
-                  End Game
-                </label>
-              </div>
-              <input id="end-modal" type="checkbox" />
-              <div class="modal">
-                <div class="card">
-                  <label for="end-modal" class="close" />
-                  <h3 class="section">Are you sure?</h3>
-                  <button onclick={actions.endGame}>Yes, End Game</button>
-                </div>
-              </div>
-            </div>
-          ) : (
+          {game.admin.uid === user.uid && (
+            <AdminControls
+              players={game.players}
+              showVotes={actions.showVotes}
+              newRound={actions.newRound}
+              endGame={actions.endGame}
+              votesShowing={game.showVotes}
+            />
+          )}
+          {game.admin.uid !== user.uid &&
             (!game.players || !game.players[user.uid]) && (
               <p>
                 Join the game!
                 <button onclick={() => actions.becomePlayer(user)}>Join Game</button>
               </p>
-            )
-          )}
+            )}
           {Object.values(game.players).map(player => (
             <PlayerCard
               player={player}
@@ -60,6 +38,7 @@ export default ({ game, user, actions }) => (
               game={game}
               removePlayer={actions.removePlayer}
               addVote={actions.addVote}
+              key={player.uid}
             />
           ))}
         </div>
