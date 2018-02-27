@@ -1,7 +1,9 @@
 import { h } from 'hyperapp'
+import Login from './Login.jsx'
 
-export default ({ name }) => (
+export default props => (
   <header class="row">
-    <div class="col-sm-1">{name ? `Logged in: ${name}` : 'Please Log in'}</div>
+    <Login {...props} />
+    <p>Planning Poker</p>
   </header>
 )

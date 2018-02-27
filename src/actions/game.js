@@ -6,8 +6,8 @@ export default {
   joinRoom: user => async () => {
     await game.child(`room/${user.uid}`).set(user)
   },
-  leaveRoom: () => async () => {
-    await detachListeners()
+  leaveRoom: user => async () => {
+    await game.child(`room/${user.uid}`).set(user)
   },
   startGame: user => async () => {
     await game.child('started').set(true)

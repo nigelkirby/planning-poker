@@ -3,10 +3,7 @@ import { Header, Game } from './components'
 
 export default (state, actions) => (
   <div ondestroy={actions.game.leaveRoom}>
-    <Header name={state.user.displayName} />
-    {!state.user.displayName &&
-      !state.user.loading && <button onclick={actions.user.signIn}>Sign In</button>}
-    {state.user.loading && <div>Loading...</div>}
+    <Header user={state.user} signIn={actions.user.signIn} signOut={actions.user.signOut} />
     {state.user.displayName && <Game game={state.game} user={state.user} actions={actions.game} />}
   </div>
 )

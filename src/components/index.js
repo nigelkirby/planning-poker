@@ -5,5 +5,6 @@ import VoteSection from './VoteSection.jsx'
 import Room from './Room.jsx'
 import PlayerCard from './PlayerCard.jsx'
 import AdminControls from './AdminControls.jsx'
+import Login from './Login.jsx'
 
-export { Header, Game, UserCard, VoteSection, Room, PlayerCard, AdminControls }
+export { Header, Game, UserCard, VoteSection, Room, PlayerCard, AdminControls, Login }
