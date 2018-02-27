@@ -1,8 +1,16 @@
-import { database } from '../firebase'
+import { database, detachListeners } from '../firebase'
 
 export default {
   set: game => () => game,
   toggleLoading: () => state => ({ loading: !state.loading }),
+  joinRoom: user => async (state, actions) => {
+    const observerId = await database.ref('game/observers').push(user)
+    actions.set({ observerId })
+  },
+  leaveRoom: () => async (state) => {
+    await detachListeners()
+    await database.ref(`game/observers/${state.observerId}`).remove()
+  },
   startGame: user => async () => {
     await database.ref('game/started').set(true)
     await database.ref('game/admin').set(user)
@@ -32,7 +40,9 @@ export default {
     })
   },
   removePlayer: uid => async (state) => {
-    // Take into account that state won't get updated if all players go away
+    // Taking into account that state won't get updated if all players go away,
+    // this is a slightly risky race condition, local state doesn't represent
+    // remote state at all times.
     if (Object.values(state.players).length === 1 && state.players[uid]) {
       await database.ref('game/players/').set('')
     } else {

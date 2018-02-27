@@ -14,3 +14,8 @@ export default firebase
 export const database = firebase.database()
 export const auth = firebase.auth()
 export const githubAuthProvider = new firebase.auth.GithubAuthProvider()
+export const game = database.ref('game')
+export const attachListener = (main) => {
+  game.on('value', snap => main.game.set(snap.val()))
+}
+export const detachListeners = async () => game.off()
