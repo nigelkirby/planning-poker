@@ -1,5 +1,5 @@
 import { h } from 'hyperapp'
-import { UserCard, VoteSection } from './index'
+import { VoteSection, Room } from './index'
 
 const everyoneDone = players => Object.values(players).every(player => player.vote > 0)
 
@@ -86,19 +86,7 @@ export default ({ game, user, actions }) => (
               ))}
           </div>
           <div class="col-md-3 hidden-sm">
-            <h4>Scrum Master is</h4>
-            <UserCard
-              name={game.admin && game.admin.displayName}
-              url={game.admin && game.admin.photoURL}
-            />
-            {game.players && (
-              <div>
-                <h4>Players are</h4>
-                {Object.values(game.players).map(player => (
-                  <UserCard name={player.displayName} url={player.photoURL} />
-                ))}
-              </div>
-            )}
+            <Room admin={game.admin} players={game.players} room={game.room} />
           </div>
         </div>
       )}
