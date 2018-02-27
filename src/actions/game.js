@@ -17,7 +17,7 @@ export default {
     await game.set({
       started: false,
       loading: false,
-      admin: 0,
+      admin: '',
       players: '',
       showVotes: false,
     })
