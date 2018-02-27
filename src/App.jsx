@@ -2,7 +2,7 @@ import { h } from 'hyperapp'
 import { Header, Game } from './components'
 
 export default (state, actions) => (
-  <div>
+  <div ondestroy={actions.game.leaveRoom}>
     <Header name={state.user.displayName} />
     {!state.user.displayName &&
       !state.user.loading && <button onclick={actions.user.signIn}>Sign In</button>}

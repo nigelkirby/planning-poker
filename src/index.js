@@ -7,11 +7,13 @@ import { auth, attachListener } from './firebase'
 const main = app(state, actions, view, document.body)
 
 auth.onAuthStateChanged(({ displayName, uid, photoURL }) => {
-  main.user.set({
+  const user = {
     displayName,
     uid,
     photoURL,
-  })
+  }
+  main.user.set(user)
+  main.game.joinRoom(user)
   attachListener(main)
 })
 

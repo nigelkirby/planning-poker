@@ -1,22 +1,20 @@
-import { database, detachListeners } from '../firebase'
+import { detachListeners, game } from '../firebase'
 
 export default {
-  set: game => () => game,
+  set: gameState => () => gameState,
   toggleLoading: () => state => ({ loading: !state.loading }),
-  joinRoom: user => async (state, actions) => {
-    const observerId = await database.ref('game/observers').push(user)
-    actions.set({ observerId })
+  joinRoom: user => async () => {
+    await game.child(`room/${user.uid}`).set(user)
   },
-  leaveRoom: () => async (state) => {
+  leaveRoom: () => async () => {
     await detachListeners()
-    await database.ref(`game/observers/${state.observerId}`).remove()
   },
   startGame: user => async () => {
-    await database.ref('game/started').set(true)
-    await database.ref('game/admin').set(user)
+    await game.child('started').set(true)
+    await game.child('admin').set(user)
   },
   endGame: () => async () => {
-    await database.ref('game').set({
+    await game.set({
       started: false,
       loading: false,
       admin: 0,
@@ -25,18 +23,18 @@ export default {
     })
   },
   becomePlayer: user => async () => {
-    await database.ref(`game/players/${user.uid}`).set(user)
+    await game.child(`players/${user.uid}`).set(user)
   },
   addVote: ({ uid, vote }) => async () => {
-    await database.ref(`game/players/${uid}/vote`).set(vote)
+    await game.child(`players/${uid}/vote`).set(vote)
   },
   showVotes: () => async () => {
-    await database.ref('game/showVotes').set(true)
+    await game.child('showVotes').set(true)
   },
   newRound: () => async (state) => {
-    await database.ref('game/showVotes').set(false)
+    await game.child('showVotes').set(false)
     Object.values(state.players).forEach(async (player) => {
-      await database.ref(`game/players/${player.uid}/vote`).set(0)
+      await game.child(`players/${player.uid}/vote`).set(0)
     })
   },
   removePlayer: uid => async (state) => {
@@ -44,9 +42,9 @@ export default {
     // this is a slightly risky race condition, local state doesn't represent
     // remote state at all times.
     if (Object.values(state.players).length === 1 && state.players[uid]) {
-      await database.ref('game/players/').set('')
+      await game.child('players/').set('')
     } else {
-      await database.ref(`game/players/${uid}`).remove()
+      await game.child(`players/${uid}`).remove()
     }
   },
 }
