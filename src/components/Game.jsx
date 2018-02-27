@@ -1,5 +1,5 @@
 import { h } from 'hyperapp'
-import { VoteSection, Room } from './index'
+import { Room, PlayerCard } from './index'
 
 const everyoneDone = players => Object.values(players).every(player => player.vote > 0)
 
@@ -54,33 +54,13 @@ export default ({ game, user, actions }) => (
             )
           )}
           {Object.values(game.players).map(player => (
-            // todo component:
-            <div class="card fluid">
-              <div class={player.vote ? 'section row darker' : 'section row'}>
-                <div class="col-sm-9">
-                  <h4>{player.displayName}</h4>
-                </div>
-                <div className="col-sm-2">
-                  {player.uid === user.uid &&
-                    !game.showVotes && (
-                      <button class="inverse" onclick={() => actions.removePlayer(player.uid)}>
-                        Leave
-                      </button>
-                    )}
-                </div>
-                <div class="col-sm-1">
-                  <p>{game.showVotes && player.vote}</p>
-                </div>
-              </div>
-              {player.uid === user.uid && (
-                <VoteSection
-                  uid={user.uid}
-                  voteAction={actions.addVote}
-                  currentVote={game.players[user.uid].vote}
-                  votesLocked={game.showVotes}
-                />
-              )}
-            </div>
+            <PlayerCard
+              player={player}
+              user={user}
+              game={game}
+              removePlayer={actions.removePlayer}
+              addVote={actions.addVote}
+            />
           ))}
         </div>
       )}

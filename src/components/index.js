@@ -3,5 +3,6 @@ import Game from './Game.jsx'
 import UserCard from './UserCard.jsx'
 import VoteSection from './VoteSection.jsx'
 import Room from './Room.jsx'
+import PlayerCard from './PlayerCard.jsx'
 
-export { Header, Game, UserCard, VoteSection, Room }
+export { Header, Game, UserCard, VoteSection, Room, PlayerCard }
