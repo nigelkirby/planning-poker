@@ -10,17 +10,11 @@ export default {
     await game.child(`room/${user.uid}`).set(user)
   },
   startGame: user => async () => {
-    await game.child('started').set(true)
     await game.child('admin').set(user)
   },
-  endGame: () => async () => {
-    await game.set({
-      started: false,
-      loading: false,
-      admin: '',
-      players: '',
-      showVotes: false,
-    })
+  endGame: () => async (state, actions) => {
+    await game.child('admin').set('')
+    actions.newRound()
   },
   becomePlayer: user => async () => {
     await game.child(`players/${user.uid}`).set(user)
