@@ -9,10 +9,11 @@ export default ({ user, signIn, signOut }) => (
           Sign In
         </button>
       )}
-    {user.displayName && (
-      <button onclick={signOut} class="tertiary">
-        Sign Out
-      </button>
-    )}
+    {user.displayName &&
+      !user.loading && (
+        <button onclick={signOut} class="tertiary">
+          Sign Out
+        </button>
+      )}
   </div>
 )

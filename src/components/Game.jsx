@@ -15,37 +15,32 @@ export default ({ game, user, actions }) => (
         />
       )}
       {!game.loading &&
-        game.admin && (
-          <div>
-            {game.admin.uid === user.uid && (
-              <AdminControls
-                players={game.players}
-                showVotes={actions.showVotes}
-                newRound={actions.newRound}
-                endGame={actions.endGame}
-                votesShowing={game.showVotes}
-              />
-            )}
-            {game.players &&
-              Object.values(game.players).map(player => (
-                <PlayerCard
-                  player={player}
-                  user={user}
-                  game={game}
-                  removePlayer={actions.removePlayer}
-                  addVote={actions.addVote}
-                  key={player.uid}
-                />
-              ))}
-          </div>
+        game.admin &&
+        game.admin.uid === user.uid && (
+          <AdminControls
+            players={game.players}
+            showVotes={actions.showVotes}
+            newRound={actions.newRound}
+            endGame={actions.endGame}
+            votesShowing={game.showVotes}
+          />
         )}
+      {!game.loading &&
+        game.admin &&
+        game.players &&
+        Object.values(game.players).map(player => (
+          <PlayerCard
+            player={player}
+            user={user}
+            game={game}
+            removePlayer={actions.removePlayer}
+            addVote={actions.addVote}
+            key={player.uid}
+          />
+        ))}
     </div>
-    <div class="col-md-3 hidden-sm">
-      {!game.loading && (
-        <div>
-          <Room admin={game.admin} players={game.players} room={game.room} />
-        </div>
-      )}
+    <div class="col-md-3">
+      {!game.loading && <Room admin={game.admin} players={game.players} room={game.room} />}
     </div>
   </div>
 )

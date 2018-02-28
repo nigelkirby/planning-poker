@@ -7,10 +7,10 @@ export default ({
   <div class="card fluid">
     <div class={player.vote ? 'section row darker' : 'section row'}>
       <div class="col-sm-11">
-        <h4>{player.displayName}</h4>
+        <h3>{player.displayName}</h3>
       </div>
       <div class="col-sm-1">
-        <p>{game.showVotes && player.vote}</p>
+        <h3>{game.showVotes && player.vote}</h3>
       </div>
     </div>
     {player.uid === user.uid && (
