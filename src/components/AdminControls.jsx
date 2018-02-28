@@ -5,19 +5,16 @@ const everyoneDone = players => Object.values(players).every(player => player.vo
 export default ({
   players, showVotes, newRound, endGame, votesShowing,
 }) => (
-  <div>
-    <p>Scrum Master Controls:</p>
-    <div class="button-group">
-      <button onclick={showVotes} class="small" disabled={!everyoneDone(players) && !votesShowing}>
-        Show Votes
-      </button>
-      <button onclick={newRound} class="small" disabled={!votesShowing}>
-        New Round
-      </button>
-      <label for="end-modal" class="button small">
-        End Game
-      </label>
-    </div>
+  <div class="button-group">
+    <button onclick={showVotes} class="small" disabled={!everyoneDone(players) && !votesShowing}>
+      Show Votes
+    </button>
+    <button onclick={newRound} class="small" disabled={!votesShowing}>
+      New Round
+    </button>
+    <label for="end-modal" class="button small">
+      End Game
+    </label>
     <input id="end-modal" type="checkbox" />
     <div class="modal">
       <div class="card">

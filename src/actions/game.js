@@ -7,7 +7,7 @@ export default {
     await game.child(`room/${user.uid}`).set(user)
   },
   leaveRoom: user => async () => {
-    await game.child(`room/${user.uid}`).set(user)
+    await game.child(`room/${user.uid}`).remove()
   },
   startGame: user => async () => {
     await game.child('admin').set(user)

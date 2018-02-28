@@ -5,12 +5,26 @@ export default ({
 }) => {
   const amPlayer = Object.keys(game.players).includes(user.uid)
   const noAdmin = !Object.keys(game.room).includes(game.admin.uid)
+  const amAdmin = game.admin.uid === user.uid
   return (
-    <div>
-      {noAdmin && !amPlayer && <button onclick={() => startGame(user)}>Become SM</button>}
-      {game.admin.uid !== user.uid &&
-        !amPlayer && <button onclick={() => becomePlayer(user)}>Join Players</button>}
-      {amPlayer && <button onclick={() => removePlayer(user.uid)}>Leave Game</button>}
+    <div class={amAdmin ? 'hidden' : 'button-group'}>
+      {noAdmin &&
+        !amPlayer && (
+          <button onclick={() => startGame(user)} class="small">
+            Become Scrum Master
+          </button>
+        )}
+      {!amAdmin &&
+        !amPlayer && (
+          <button onclick={() => becomePlayer(user)} class="small">
+            Join Players
+          </button>
+        )}
+      {amPlayer && (
+        <button onclick={() => removePlayer(user.uid)} class="small">
+          Leave Game
+        </button>
+      )}
     </div>
   )
 }
