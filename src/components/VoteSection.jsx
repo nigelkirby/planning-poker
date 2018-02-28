@@ -7,7 +7,10 @@ export default ({
 }) => (
   <div class={(votesLocked && 'hidden') || 'button-group'}>
     {voteOptions.map(el => (
-      <button class={currentVote === el && 'inverse'} onclick={() => voteAction({ uid, vote: el })}>
+      <button
+        class={currentVote === el && 'inverse'}
+        onclick={() => voteAction({ uid, vote: currentVote === el ? 0 : el })}
+      >
         {el}
       </button>
     ))}
