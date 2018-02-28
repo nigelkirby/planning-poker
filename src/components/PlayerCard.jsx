@@ -6,10 +6,10 @@ export default ({
 }) => (
   <div class="card fluid">
     <div class={player.vote ? 'section row darker' : 'section row'}>
-      <div class="col-sm-11">
+      <div class="col-sm-10">
         <h3>{player.displayName}</h3>
       </div>
-      <div class="col-sm-1">
+      <div class="col-sm-2" style={{ textAlign: 'right' }}>
         <h3>{game.showVotes && player.vote}</h3>
       </div>
     </div>
