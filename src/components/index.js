@@ -6,6 +6,18 @@ import Room from './Room.jsx'
 import PlayerCard from './PlayerCard.jsx'
 import AdminControls from './AdminControls.jsx'
 import GameControls from './GameControls.jsx'
+import GameStats from './GameStats.jsx'
 import Login from './Login.jsx'
 
-export { Header, Game, UserCard, VoteSection, Room, PlayerCard, AdminControls, Login, GameControls }
+export {
+  Header,
+  Game,
+  UserCard,
+  VoteSection,
+  Room,
+  PlayerCard,
+  AdminControls,
+  Login,
+  GameControls,
+  GameStats,
+}

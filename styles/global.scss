@@ -1,1 +1,32 @@
-@import 'mini.scss';
+@import "mini.scss";
+
+$tertiary: $button-variant3-back-color;
+
+.chart {
+  display: grid;
+  grid-template-columns: repeat(9, 1fr);
+  grid-template-rows: repeat(100, 1fr);
+  grid-column-gap: 2px;
+  padding: 5px 10px;
+}
+
+[class*="bar"] {
+  border-radius: 2px 2px 0 0;
+  transition: all 0.6s ease;
+  background-color: $tertiary;
+  grid-row-start: 1;
+  grid-row-end: 101;
+}
+
+$totalRows: 101;
+
+@mixin chartValue($data) {
+  $result: $totalRows - $data;
+  grid-row-start: $result;
+}
+
+@for $i from 1 through $totalRows {
+  .bar-#{$i} {
+    @include chartValue($i);
+  }
+}

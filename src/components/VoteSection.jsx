@@ -1,6 +1,6 @@
 import { h } from 'hyperapp'
 
-const voteOptions = [1, 2, 3, 5, 8, 13, 21, 40, 100]
+const voteOptions = [1, 2, 3, 5, 8, 13, 21, 34, 55, 89]
 
 export default ({
   uid, voteAction, currentVote, votesLocked,
